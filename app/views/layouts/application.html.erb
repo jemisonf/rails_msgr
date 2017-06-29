@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Msgr</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'custom' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="page-header container">
+      <h1 class="pull-left"><%=link_to "msgr", posts_path %><small> featuring a compelling sub header</small></h1>
+      <% if session[:user_id] != nil %>
+        <h3 class="pull-right">User: <%=User.find(session[:user_id]).name %> | <a href=#>Sign Out</a></h3>
+      <% else %>
+        <h3 class="pull-right"><a href=#>Sign In</a> | <a href=#>Sign Up</a></h3>
+      <% end %>
+    </div>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>

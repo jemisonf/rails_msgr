@@ -3,7 +3,13 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    if (params[:user])
+      @posts = Post.where("user_id = ?", User.find_by(name: params[:user]).id);
+    else 
+      @posts = Post.all
+    end
+
+
   end
 
   # GET /posts/1

@@ -1,19 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<h2><%= @user.name %></h2>
 
-<p>
-  <strong>Info:</strong>
-  <%= @user.info %>
-</p>
+<p><%= @user.info %></p>
 
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
+<%= link_to 'Edit', edit_user_path(@user) %> 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= render template: "posts/index" %>

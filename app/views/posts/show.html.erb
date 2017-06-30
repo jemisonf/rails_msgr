@@ -1,19 +1,11 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
-
-<p>
-  <strong>Text:</strong>
-  <%= @post.text %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @post.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= link_to @post.title, @post, {class: "panel-title"} %>
+  </div>
+  <div class="panel-body">
+    <p><%= @post.text %></p>
+    Posted by <%= link_to "#{User.find(@post.user_id).name}", User.find(@post.user_id) %>
+    <%= link_to 'Edit', edit_post_path(@post), {class: "pull-right"}  if session[:user_id] == @post.user_id %>
+   </div>
+</div>
+<%= link_to "Back", post_path %>

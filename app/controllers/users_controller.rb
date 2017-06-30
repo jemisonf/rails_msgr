@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @posts = Post.where(user_id: params[:id])
   end
 
   # GET /users/new
@@ -35,6 +36,7 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+    session[:user_id] = @user.id
   end
 
   # PATCH/PUT /users/1

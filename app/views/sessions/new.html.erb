@@ -1,0 +1,17 @@
+<h2>Log in</h2>
+
+<%= form_for :session, url: login_path do |f| %>
+  <div class="form field-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, { class: "form-control"} %>
+  </div>
+  <div class="form field-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, { class: "form-control" } %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Log in", class: "btn btn-default" %>
+  </div>
+
+<% end %>

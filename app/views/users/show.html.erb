@@ -1,9 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= @user.name %></h2>
+<h2><%= @user.name %> <small><%= link_to 'Edit Profile', edit_user_path(@user) , class: "pull-right"%><small></h2>
+ 
+<br>
+<p>
+  </strong><%= @user.info %></p>
+<br>
 
-<p><%= @user.info %></p>
+<% if @user.posts.size > 0 %>
+  <h2>Posts by <%= @user.name %> </h2>
+<% end %>
+<% @user.posts.order(created_at: :DESC).each do |post| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= link_to post.title, post_path(post.id), class: "panel-title" %>
+    </div>
+    <div class="panel-body">
+      <p> <%= post.text %> </p>
+    </div>
+  </div>
+<% end %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> 
 
-<%= render template: "posts/index" %>

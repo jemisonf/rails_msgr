@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+
   # GET /posts
   # GET /posts.json
   def index
@@ -8,6 +9,7 @@ class PostsController < ApplicationController
     else 
       @posts = Post.all
     end
+    @posts.each { |post| post.replies = Reply.where(post_id: post.id) }
 
 
   end
@@ -30,7 +32,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-    @post.user_id = session[:user_id]
+    @post.user_id = session[:user_id] if session[:user_id]
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -70,11 +72,21 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+      @post.replies = Reply.where(post_id: @post.id)
+      @replies = @post.replies
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:title, :text)
+    end
+
+    def set_replies
+      @post.replies = Reply.where(post_id: @post.id)
+    end
+
+    def set_all_replies
+      @posts.each { |post| post.replies = Reply.where(post_id: post.id) }
     end
 
 end

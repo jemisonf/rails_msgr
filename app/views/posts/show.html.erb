@@ -6,6 +6,25 @@
     <p><%= @post.text %></p>
     Posted by <%= link_to "#{User.find(@post.user_id).name}", User.find(@post.user_id) %>
     <%= link_to 'Edit', edit_post_path(@post), {class: "pull-right"}  if session[:user_id] == @post.user_id %>
-   </div>
+    <br>
+    <br>
+    <% if @post.replies.size > 0 %>
+      <p><strong>Replies:</strong></p>
+      <div class="well">
+        <% @post.replies.each do |reply| %>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <p> <%= reply.text %> </p>
+              <%= link_to "By #{User.find(reply.user_id).name}", users_path(reply.user_id) %>
+              <%= link_to "Delete", post_reply_path(post_id: @post.id, id: reply.id), method: :delete, class: "pull-right" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p><strong>No replies yet.</strong></p>
+    <% end %>
+    <%= render partial: "reply" %>
+  </div> 
 </div>
 <%= link_to "Back", post_path %>

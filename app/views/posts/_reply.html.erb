@@ -1,0 +1,7 @@
+<%# = form_for @replies.new(user_id: session[:user_id]), url: new_post_reply_path(post_id: @post.id) do |f| %>
+<%= form_for @post.replies.new, url: post_replies_path(@post.id) do |f| %>
+  <div class="field form-group">
+    <%=f.text_area :text, class: "form-control" %>
+    <%=f.submit "Reply", class: "btn btn-primary" %>
+  </div>
+<% end %>

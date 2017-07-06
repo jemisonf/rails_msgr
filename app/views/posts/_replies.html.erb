@@ -1,0 +1,12 @@
+  <% replies.each do |reply| %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p> <%= reply.text %> </p>
+        <%= link_to "By #{User.find(reply.user_id).name}", users_path(reply.user_id) %>
+        <% if session[:user_id] == reply.user_id %>
+          <%= link_to "Delete", post_reply_path(post_id: post.id, id: reply.id), method: :delete, class: "pull-right" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+

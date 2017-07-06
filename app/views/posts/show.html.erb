@@ -9,8 +9,7 @@
     <br>
     <br>
     <% if @post.replies.size > 0 %>
-      <p><strong>Replies:</strong></p>
-      <div class="well">
+      <!--
         <% @post.replies.each do |reply| %>
           <div class="panel panel-default">
             <div class="panel-body">
@@ -20,6 +19,10 @@
             </div>
           </div>
         <% end %>
+      -->
+      <p><strong>Replies:</strong></p>
+      <div class="well">
+        <%= render partial: "replies", object: @post.replies, locals: {post: @post} %>
       </div>
     <% else %>
       <p><strong>No replies yet.</strong></p>

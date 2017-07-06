@@ -12,9 +12,19 @@
     </div>
     <div class="panel-body">
       <p><%= post.text %></p>
-      Posted by <%= link_to "#{User.find(post.user_id).name}", User.find(post.user_id) %>
-    <%= link_to 'Edit', edit_post_path(post), {class: "pull-right"}  if session[:user_id] == post.user_id %>
-     </div>
+      <p>Posted by <%= link_to "#{User.find(post.user_id).name}", User.find(post.user_id) %></p>
+      <%= link_to 'Edit', edit_post_path(post), {class: "pull-right"}  if session[:user_id] == post.user_id %>
+      <% if has_replies?(post) %>
+          <a data-toggle="collapse" href="#post-<%="#{post.id}"%>-replies" aria-expanded="false" aria-controls=<%= "post-#{post.id}-replies"%>>Show Comments</a>
+          <div class="collapse" id=<%="post-#{post.id}-replies"%>>          
+            <div class="well">
+              <%= render partial: "replies", object: Reply.where(post_id: post.id), locals: {post: post} %>
+            </div>
+          </div>
+      <% else %>
+        <p>No replies</p>
+      <% end %>
+    </div>
   </div>
 <%end%>
 
